@@ -40,11 +40,11 @@ func main() {
 		router.DELETE("/customer/:id", controller.DeleteCustomer)
 
 		// customer
-		router.GET("/booking", controller.ListBooking)
-		router.GET("/booking/:id", controller.GetBooking) // Corrected route name
-		router.POST("/booking", controller.CreateBooking) // Assuming you want to create a meeting room
-		router.PATCH("/booking", controller.UpdateBooking)
-		router.DELETE("/booking/:id", controller.DeleteBooking)
+		router.GET("/bookingMeetingRoom", controller.ListBooking)
+		router.GET("/bookingMeetingRoom/:id", controller.GetBooking) // Corrected route name
+		router.POST("/bookingMeetingRoom", controller.CreateBooking) // Assuming you want to create a meeting room
+		router.PATCH("/bookingMeetingRoom", controller.UpdateBooking)
+		router.DELETE("/bookingMeetingRoom/:id", controller.DeleteBooking)
 
 	}
 

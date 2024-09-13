@@ -10,14 +10,15 @@ import (
 
 // GET /meetingroom
 func ListCustomer(c *gin.Context) {
-	var meetingroom []entity.MeetingRoom
+	var customer []entity.Customer
 
 	db := config.DB()
 
-	db.Find(&meetingroom)
+	db.Find(&customer)
 
-	c.JSON(http.StatusOK, &meetingroom)
+	c.JSON(http.StatusOK, &customer)
 }
+
 func GetCustomer(c*gin.Context){
 	ID := c.Param("id")
 	var customer entity.Customer

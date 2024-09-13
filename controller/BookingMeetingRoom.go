@@ -80,15 +80,13 @@ func GetBooking(c *gin.Context) {
 // GET /Bookings
 func ListBooking(c *gin.Context) {
 
-	var bookings []entity.ManageRoom
+	var manageRoom []entity.ManageRoom
 
 	db := config.DB()
-	results := db.Preload("Gender").Find(&bookings)
-	if results.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, bookings)
+
+	db.Find(&manageRoom)
+
+	c.JSON(http.StatusOK, &manageRoom)
 }
 
 
