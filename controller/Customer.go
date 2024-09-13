@@ -9,7 +9,7 @@ import (
 )
 
 // GET /meetingroom
-func ListCustomer(c *gin.Context) {
+func ListCustomerMeetingRoom(c *gin.Context) {
 	var customer []entity.CustomerMeetingRoom
 
 	db := config.DB()
@@ -19,7 +19,7 @@ func ListCustomer(c *gin.Context) {
 	c.JSON(http.StatusOK, &customer)
 }
 
-func GetCustomer(c*gin.Context){
+func GetCustomerMeetingRoom(c*gin.Context){
 	ID := c.Param("id")
 	var customer entity.CustomerMeetingRoom
 	db := config.DB()
@@ -35,7 +35,7 @@ func GetCustomer(c*gin.Context){
 	c.JSON(http.StatusOK, customer)
 }
 
-func UpdateCustomer(c *gin.Context) {
+func UpdateCustomerMeetingRoom(c *gin.Context) {
 	var room entity.CustomerMeetingRoom
 
 	CustomerID := c.Param("id")
@@ -62,7 +62,7 @@ func UpdateCustomer(c *gin.Context) {
 }
 
 // GET /CreateCutomer
-func CreateCustomer(c *gin.Context) {
+func CreateCustomerMeetingRoom(c *gin.Context) {
 	var user entity.CustomerMeetingRoom
 
 	// Bind JSON to the user variable
@@ -90,7 +90,7 @@ func CreateCustomer(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": customer})
 }
 
-func DeleteCustomer(c *gin.Context) {
+func DeleteCustomerMeetingRoom(c *gin.Context) {
 
 	id := c.Param("id")
 	db := config.DB()

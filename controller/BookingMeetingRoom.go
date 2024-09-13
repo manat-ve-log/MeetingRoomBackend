@@ -9,7 +9,7 @@ import (
 )
 
 // POST /ManageRoom
-func CreateBooking(c *gin.Context) {
+func CreateBookingMeetingRoom(c *gin.Context) {
 	var manageRoom entity.ManageRoom
 
 	// Bind the JSON payload to the ManageRoom struct
@@ -60,7 +60,7 @@ func CreateBooking(c *gin.Context) {
 
 
 // GET /Booking/:id
-func GetBooking(c *gin.Context) {
+func GetBookingMeetingRoom(c *gin.Context) {
 	ID := c.Param("id")
 	var booking entity.ManageRoom
 
@@ -78,7 +78,7 @@ func GetBooking(c *gin.Context) {
 }
 
 // GET /Bookings
-func ListBooking(c *gin.Context) {
+func ListBookingMeetingRoom(c *gin.Context) {
 
 	var manageRoom []entity.ManageRoom
 
@@ -91,7 +91,7 @@ func ListBooking(c *gin.Context) {
 
 
 // DELETE /Booking/:id
-func DeleteBooking(c *gin.Context) {
+func DeleteBookingMeetingRoom(c *gin.Context) {
 
 	id := c.Param("id")
 	db := config.DB()
@@ -104,7 +104,7 @@ func DeleteBooking(c *gin.Context) {
 }
 
 // PATCH /Booking
-func UpdateBooking(c *gin.Context) {
+func UpdateBookingMeetingRoom(c *gin.Context) {
 	var booking entity.ManageRoom
 	BookingID := c.Param("id")
 	db := config.DB()

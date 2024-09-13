@@ -33,18 +33,18 @@ func main() {
 		router.DELETE("/meetingRoom/:id", controller.DeleteMeetingRoom)
 
 		// customer
-		router.GET("/customer", controller.ListCustomer)
-		router.GET("/customer/:id", controller.GetCustomer) // Corrected route name
-		router.POST("/customer", controller.CreateCustomer) // Assuming you want to create a meeting room
-		router.PATCH("/customer", controller.UpdateCustomer)
-		router.DELETE("/customer/:id", controller.DeleteCustomer)
+		router.GET("/customerMeetingRoom", controller.ListCustomerMeetingRoom)
+		router.GET("/customerMeetingRoom/:id", controller.GetCustomerMeetingRoom) // Corrected route name
+		router.POST("/customerMeetingRoom", controller.CreateCustomerMeetingRoom) // Assuming you want to create a meeting room
+		router.PATCH("/customerMeetingRoom", controller.UpdateCustomerMeetingRoom)
+		router.DELETE("/customerMeetingRoom/:id", controller.DeleteCustomerMeetingRoom)
 
 		// customer
-		router.GET("/bookingMeetingRoom", controller.ListBooking)
-		router.GET("/bookingMeetingRoom/:id", controller.GetBooking) // Corrected route name
-		router.POST("/bookingMeetingRoom", controller.CreateBooking) // Assuming you want to create a meeting room
-		router.PATCH("/bookingMeetingRoom", controller.UpdateBooking)
-		router.DELETE("/bookingMeetingRoom/:id", controller.DeleteBooking)
+		router.GET("/bookingMeetingRoom", controller.ListBookingMeetingRoom)
+		router.GET("/bookingMeetingRoom/:id", controller.GetBookingMeetingRoom) // Corrected route name
+		router.POST("/bookingMeetingRoom", controller.CreateBookingMeetingRoom) // Assuming you want to create a meeting room
+		router.PATCH("/bookingMeetingRoom", controller.UpdateBookingMeetingRoom)
+		router.DELETE("/bookingMeetingRoom/:id", controller.DeleteBookingMeetingRoom)
 
 	}
 
