@@ -18,10 +18,50 @@ func ListCustomer(c *gin.Context) {
 
 	c.JSON(http.StatusOK, &meetingroom)
 }
+func GetCustomer(c*gin.Context){
+	ID := c.Param("id")
+	var customer entity.Customer
+	db := config.DB()
+	results := db.Preload("customer").First(&customer, ID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	if customer.ID == 0 {
+		c.JSON(http.StatusNoContent, gin.H{})
+		return
+	}
+	c.JSON(http.StatusOK, customer)
+}
 
+func UpdateCustomer(c *gin.Context) {
+	var room entity.Customer
+
+	CustomerID := c.Param("id")
+
+	db := config.DB()
+	result := db.First(&room, CustomerID)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&room); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
+		return
+	}
+
+	result = db.Save(&room)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
+}
 
 // GET /CreateCutomer
-func CreateUser(c *gin.Context) {
+func CreateCustomer(c *gin.Context) {
 	var user entity.Customer
 
 	// Bind JSON to the user variable

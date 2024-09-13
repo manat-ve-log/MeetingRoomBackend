@@ -12,48 +12,51 @@ import (
 func CreateBooking(c *gin.Context) {
 	var manageRoom entity.ManageRoom
 
-	// bind เข้าตัวแปร manageRoom
+	// Bind the JSON payload to the ManageRoom struct
 	if err := c.ShouldBindJSON(&manageRoom); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+	// Get a database connection
 	db := config.DB()
-	// ค้นหา Customer ด้วย id
+
+	// Fetch the Customer by ID
 	var customer entity.Customer
-	db.First(&customer, manageRoom.CustomerID)
-	if customer.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "gender not found"})
+	if err := db.First(&customer, manageRoom.CustomerID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
 		return
 	}
 
+	// Fetch the MeetingRoom by ID
 	var meetingRoom entity.MeetingRoom
-	db.First(&meetingRoom, manageRoom.MeetingRoomID)
-	if meetingRoom.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "gender not found"})
+	if err := db.First(&meetingRoom, manageRoom.MeetingRoomID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Meeting Room not found"})
 		return
 	}
 
-	// เข้ารหัสลับรหัสผ่านที่ผู้ใช้กรอกก่อนบันทึกลงฐานข้อมูล
-
-	// สร้าง User
+	// Create a new ManageRoom record
 	b := entity.ManageRoom{
-		StartTime:     manageRoom.StartTime,  // ตั้งค่าฟิลด์ StartTime
-		EndTime:       manageRoom.EndTime,    // ตั้งค่าฟิลด์ EndTime
-		CustomerID: manageRoom.CustomerID,
-		Customer:    customer,    // ตั้งค่าฟิลด์ CustomerID
-		MeetingRoomID: manageRoom.MeetingRoomID, // ตั้งค่าฟิลด์ MeetingRoomID
-		MeetingRoom:   meetingRoom, 
+		DateTime: 		   manageRoom.DateTime,	
+		StartTime:     manageRoom.StartTime,
+		EndTime:       manageRoom.EndTime,
+		TotalPeople:   manageRoom.TotalPeople,
+		CustomerID:    manageRoom.CustomerID,
+		Customer:      customer,
+		MeetingRoomID: manageRoom.MeetingRoomID,
+		MeetingRoom:   meetingRoom,
 	}
 
-	// บันทึก
+	// Insert the new record into the database
 	if err := db.Create(&b).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": b})
+	// Return a success response
+	c.JSON(http.StatusCreated, gin.H{"message": "Created successfully", "data": b})
 }
+
 
 
 // GET /Booking/:id
@@ -105,26 +108,21 @@ func DeleteBooking(c *gin.Context) {
 // PATCH /Booking
 func UpdateBooking(c *gin.Context) {
 	var booking entity.ManageRoom
-
 	BookingID := c.Param("id")
-
 	db := config.DB()
 	result := db.First(&booking, BookingID)
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
 		return
 	}
-
 	if err := c.ShouldBindJSON(&booking); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
 		return
 	}
-
 	result = db.Save(&booking)
 	if result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
 		return
 	}
-
 	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
 }

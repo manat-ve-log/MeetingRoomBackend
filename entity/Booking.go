@@ -9,6 +9,7 @@ import (
 type ManageRoom struct{
 	gorm.Model
 	ID uint `gorm:"primaryKey"`
+	DateTime time.Time
 	StartTime time.Time
 	EndTime time.Time
 	TotalPeople int

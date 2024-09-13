@@ -22,9 +22,8 @@ func ListMeetingRoom(c *gin.Context) {
 func GetMeetingRoom(c *gin.Context) {
 	ID := c.Param("id")
 	var room entity.MeetingRoom
-
 	db := config.DB()
-	results := db.Preload("Gender").First(&room, ID)
+	results := db.Preload("room").First(&room, ID)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
@@ -75,11 +74,6 @@ func CreateMeetingRoom(c *gin.Context) {
 
 	db := config.DB()
 
-	// ค้นหา gender ด้วย id
-	
-	// เข้ารหัสลับรหัสผ่านที่ผู้ใช้กรอกก่อนบันทึกลงฐานข้อมูล
-
-	// สร้าง User
 	r := entity.MeetingRoom{
 		RoomName:     room.RoomName,
 		Capacity:     room.Capacity,
@@ -100,13 +94,18 @@ func CreateMeetingRoom(c *gin.Context) {
 }
 
 func DeleteMeetingRoom(c *gin.Context) {
+    id := c.Param("id")
+    db := config.DB()
 
-	id := c.Param("id")
-	db := config.DB()
-	if tx := db.Exec("DELETE FROM ManagRoom WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "id not found"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"message": "Deleted successful"})
+    result := db.Delete(&entity.MeetingRoom{}, id)
+    if result.Error != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "An unexpected error occurred"})
+        return
+    }
+    if result.RowsAffected == 0 {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Meeting room with the specified ID not found"})
+        return
+    }
 
+    c.JSON(http.StatusOK, gin.H{"message": "Meeting room deleted successfully"})
 }

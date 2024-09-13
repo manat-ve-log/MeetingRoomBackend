@@ -31,8 +31,21 @@ func main() {
 		router.POST("/meetingRoom", controller.CreateMeetingRoom) // Assuming you want to create a meeting room
 		router.PATCH("/meetingRoom", controller.UpdateMeetingRoom)
 		router.DELETE("/meetingRoom/:id", controller.DeleteMeetingRoom)
-		// Gender Routes
-		// router.GET("/genders", controller.ListGenders)
+
+		// customer
+		router.GET("/customer", controller.ListCustomer)
+		router.GET("/customer/:id", controller.GetCustomer) // Corrected route name
+		router.POST("/customer", controller.CreateCustomer) // Assuming you want to create a meeting room
+		router.PATCH("/customer", controller.UpdateCustomer)
+		router.DELETE("/customer/:id", controller.DeleteCustomer)
+
+		// customer
+		router.GET("/booking", controller.ListBooking)
+		router.GET("/booking/:id", controller.GetBooking) // Corrected route name
+		router.POST("/booking", controller.CreateBooking) // Assuming you want to create a meeting room
+		router.PATCH("/booking", controller.UpdateBooking)
+		router.DELETE("/booking/:id", controller.DeleteBooking)
+
 	}
 
 	r.GET("/", func(c *gin.Context) {
