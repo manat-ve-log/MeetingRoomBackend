@@ -12,6 +12,6 @@ type MeetingRoom struct{
 	Chair int
 	Type string
 
-	Customers []Customer `gorm:"many2many:ManageRoom;"`
+	Customers []CustomerMeetingRoom `gorm:"many2many:ManageRoom;"`
 	
 }

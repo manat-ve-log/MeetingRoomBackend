@@ -10,7 +10,7 @@ import (
 
 // GET /meetingroom
 func ListCustomer(c *gin.Context) {
-	var customer []entity.Customer
+	var customer []entity.CustomerMeetingRoom
 
 	db := config.DB()
 
@@ -21,7 +21,7 @@ func ListCustomer(c *gin.Context) {
 
 func GetCustomer(c*gin.Context){
 	ID := c.Param("id")
-	var customer entity.Customer
+	var customer entity.CustomerMeetingRoom
 	db := config.DB()
 	results := db.Preload("customer").First(&customer, ID)
 	if results.Error != nil {
@@ -36,7 +36,7 @@ func GetCustomer(c*gin.Context){
 }
 
 func UpdateCustomer(c *gin.Context) {
-	var room entity.Customer
+	var room entity.CustomerMeetingRoom
 
 	CustomerID := c.Param("id")
 
@@ -63,7 +63,7 @@ func UpdateCustomer(c *gin.Context) {
 
 // GET /CreateCutomer
 func CreateCustomer(c *gin.Context) {
-	var user entity.Customer
+	var user entity.CustomerMeetingRoom
 
 	// Bind JSON to the user variable
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -74,7 +74,7 @@ func CreateCustomer(c *gin.Context) {
 	db := config.DB()
 
 	// สร้าง Customer
-	customer := entity.Customer{
+	customer := entity.CustomerMeetingRoom{
 		First_Name: user.First_Name, // ตั้งค่าฟิลด์ FirstName
 		Last_Name:  user.Last_Name,  // ตั้งค่าฟิลด์ LastName
 		Email:     user.Email,     // ตั้งค่าฟิลด์ Email

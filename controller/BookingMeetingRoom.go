@@ -22,7 +22,7 @@ func CreateBooking(c *gin.Context) {
 	db := config.DB()
 
 	// Fetch the Customer by ID
-	var customer entity.Customer
+	var customer entity.CustomerMeetingRoom
 	if err := db.First(&customer, manageRoom.CustomerID).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
 		return

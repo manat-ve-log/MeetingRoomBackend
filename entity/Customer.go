@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Customer struct {
+type CustomerMeetingRoom struct {
 	gorm.Model
 	// CustomerId  uint `gorm:"primaryKey"`
 	First_Name string
