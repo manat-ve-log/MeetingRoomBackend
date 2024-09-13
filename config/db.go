@@ -28,7 +28,7 @@ func SetupDatabase() {
 
 	db.AutoMigrate(
 		&entity.MeetingRoom{},
-		&entity.Customer{},
+		&entity.CustomerMeetingRoom{},
 		&entity.ManageRoom{},
 	)
 
